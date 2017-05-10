@@ -1,2 +1,6 @@
 # Assassins
-peer to peer 
+A Peer To Peer Applicition in Clojure.
+
+You are me, I'm you. Somos Assassins..
+
+
