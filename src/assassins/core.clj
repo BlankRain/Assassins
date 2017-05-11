@@ -1,5 +1,6 @@
 (ns assassins.core)
 (use 'assassins.tcpserver)
+(use 'assassins.network)
 "
 开发思路:
 逻辑上:
@@ -61,3 +62,12 @@
          _ (println (slurp in))]
        (.close out)
        (.close in))))
+
+
+(defn all-ip []
+  (->> (network-interfaces 'seq) ;; 所有网卡
+       (map #(inet-addresses % nil)) ;; 网卡IP
+       (filter (complement nil?)) ;;过滤掉 nil的
+       flatten ;;压扁
+       (map #(.getHostAddress %)) ;; 获取地址
+       (filter #(<= (count %) 13)))) ;; 过滤掉IPV6的 IPV4的IP <= 13
